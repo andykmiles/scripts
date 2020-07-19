@@ -1,0 +1,2 @@
+#!/bin/bash
+docker build -f pysys.Dockerfile -t pysys --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
