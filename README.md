@@ -1,11 +1,11 @@
 # Docker for lazy python developers
 
-##Objectives:
+## Objectives:
 
 1. Use docker
 1. Make it look like we are not using docker (transparency wherever possible).
 1. No more virtual envs
 
-##Results
+## Results
 
 All achieved!
