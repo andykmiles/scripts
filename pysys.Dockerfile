@@ -1,12 +1,15 @@
 FROM python
-ARG USER_ID
-ARG GROUP_ID
 
 RUN apt update
 RUN apt install -y git && apt install -y curl
 
-RUN addgroup --gid $GROUP_ID andy 
-RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID andy
+RUN if ! getent passwd andy; then groupadd -g 1000 andy && useradd -u 1000 -g 1000 -d /home/andy -m -s /bin/bash andy; fi \
+    && echo andy:andy | chpasswd \
+    && echo 'andy ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+    && mkdir -p /etc/sudoers.d \
+    && echo 'andy ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/andy \
+    && chmod 0440 /etc/sudoers.d/andy
+
 USER andy
 
 ENV PATH="/home/andy/.local/bin:/home/andy/.poetry/bin:${PATH}"
